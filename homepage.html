@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonster - Coming Soon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img src="D:\job portal soon\logo.jpg" alt="Moonster Logo" class="logo">
+    <h1 class="display-3">Moonster</h1>
+    <h2 class="display-6">Job Portal - Coming Soon</h2>
+    <p class="lead">We are working hard to launch our platform. Stay tuned!</p>
+    <div class="countdown" id="countdown">00d : 00h : 00m : 00s</div>
+    
+    <script>
+        function getLaunchDate() {
+            let launchDate = localStorage.getItem("launchDate");
+            if (!launchDate) {
+                const date = new Date();
+                date.setDate(date.getDate() + 90);
+                localStorage.setItem("launchDate", date.getTime());
+                return date.getTime();
+            }
+            return parseInt(launchDate);
+        }
+
+        function updateCountdown() {
+            const targetTime = getLaunchDate();
+            const now = new Date().getTime();
+            const timeLeft = targetTime - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+            } else {
+                document.getElementById("countdown").innerHTML = "We're Live!";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
